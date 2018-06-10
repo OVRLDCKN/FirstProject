@@ -51,4 +51,40 @@ class class_read_write:
         with open(self.file, "wb") as self.FILE:
             pickle.dump(var, self.FILE)
 
-#TODO TCP server class
+#Server class, that lets me start a server and a client, and that lets me send and receive variables
+class class_server:
+    def __init__(self,ip,port):
+        self.ip = ip
+        self.port = port
+        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    def server_start(self):
+        self.socket.bind((self.ip,self.port))
+    def client_start(self):
+        self.socket.connect((self.ip,self.port))
+    def server_connect_client(self):
+        self.socket.listen(5)
+        (self.client_socket,(self.client_ip,self.client_port)) = self.socket.accept()
+    def server_send_var(self,var):
+        BINFILE = class_read_write("msg.txt")
+        BINFILE.write(var)
+        with open("msg.txt","r") as FILE:
+            var_encoded = FILE.read()
+        self.client_socket.send(var_encoded.encode())
+    def server_receive_var(self):
+        with open("msg.txt","w") as FILE:
+            FILE.write(self.client_socket.recv(2048).decode())
+        BINFILE = class_read_write("msg.txt")
+        var = BINFILE.read()
+        return var
+    def client_send_var(self,var):
+        BINFILE = class_read_write("msg.txt")
+        BINFILE.write(var)
+        with open("msg.txt", "r") as FILE:
+            var_encoded = FILE.read()
+        self.socket.send(var_encoded.encode())
+    def client_receive_var(self):
+        with open("msg.txt", "w") as FILE:
+            FILE.write(self.socket.recv(2048).decode())
+        BINFILE = class_read_write("msg.txt")
+        var = BINFILE.read()
+        return var
