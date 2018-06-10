@@ -39,6 +39,16 @@ class class_time:
             locallist.append(i)
         return locallist
 
-#TODO read / write class
+#Read and Write Class, that lets me store variables in a specified file, and get the value from the variable in the file afterwards
+class class_read_write:
+    def __init__(self,file):
+        self.file = file
+    def read(self):
+        with open(self.file, "rb") as self.FILE:
+            data = pickle.load(self.FILE)
+        return data
+    def write(self,var):
+        with open(self.file, "wb") as self.FILE:
+            pickle.dump(var, self.FILE)
 
 #TODO TCP server class
