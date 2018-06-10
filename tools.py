@@ -86,5 +86,5 @@ class class_server:
         with open("msg.txt", "w") as FILE:
             FILE.write(self.socket.recv(2048).decode())
         BINFILE = class_read_write("msg.txt")
-        var = BINFILE.read()
-        return var
+        variable = BINFILE.read()
+        return variable
