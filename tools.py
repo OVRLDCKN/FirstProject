@@ -3,6 +3,8 @@
 import time
 import pickle
 import socket
+import os
+import sys
 
 #Time Class, that gives me info about the current time
 class class_time:
@@ -88,3 +90,18 @@ class class_server:
         BINFILE = class_read_write("msg.txt")
         var = BINFILE.read()
         return var
+
+#Function, that will clear the Screen, when I call it
+def clear_screen():
+    os.system("cls")
+
+#Class, that gives me info about the path
+class class_path:
+    def __init__(self):
+        self.path_full_full = sys.path
+        self.path_full = self.path_full_full[0]
+        self.path_split = self.path_full.split("\\")
+    def path_executed(self):
+        return self.path_full
+    def user_name(self):
+        return self.path_split[2]
