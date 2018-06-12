@@ -56,14 +56,19 @@ class game:
         self.username = username
         self.winlist = winlist
     def start(self):
+        PATH = class_path()
         pygame.init()
-        pygame.display.set_mode((800,600))
-
+        display = pygame.display.set_mode((1920,1080), pygame.FULLSCREEN)
+        game_background = pygame.image.load(PATH.path_executed() + "\\resources\\game_background.png")
+        def img(img,x,y):
+            display.blit(img, (x,y))
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     quit()
+
+            img(game_background,0,0)
 
             pygame.display.update()
 
